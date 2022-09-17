@@ -24,18 +24,23 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+     
       #install salesforce cli           
       - name: 'Install Salesforce CLI'
         run: |
            npm install sfdx-cli
            node_modules/sfdx-cli/bin/run --version
            node_modules/sfdx-cli/bin/run plugins --core
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{ secrets.AUTH_SECRET }}
+      - name: sfdx-test-run
+        run: sfdx force:apex:test:run -l RunLocalTests -w 30
            
       - name: 'Installing java'
         run: sudo apt-get install openjdk-8-jdk
         
-      - name: run the text cases
-        run: Apex::[all]::Apex
+     
       
 
       
