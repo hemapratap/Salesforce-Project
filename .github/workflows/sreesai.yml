@@ -33,6 +33,9 @@ jobs:
            
       - name: 'Installing java'
         run: sudo apt-get install openjdk-8-jdk
+        
+      - name: run the text cases
+        run:  sfdx force:apex:test:run
       
 
       
