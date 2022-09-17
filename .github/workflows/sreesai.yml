@@ -36,8 +36,5 @@ jobs:
         run: sudo apt-get install openjdk-8-jdk
       
 
-      # Runs a single command using the runners shell
-      - name: run the text cases
-        run: Apex::[all]::Apex 
-
+      
      
