@@ -40,18 +40,17 @@ jobs:
            
       - name: 'Installing java'
         run: sudo apt-get install openjdk-8-jdk
+      - name: run test case 
+        run: sfdx force:apex:test:run
+             
         
-      - name: 'Read PR Body'
-        env:
-                # The pull request body is available through the github context object
-                # we put the body of the pull request in an env variable (only available to this step)
-            PR_BODY: ${{github.event.pull_request.body}}
-            
-        run: |
-                  echo $PR_BODY > ./pr_body.txt
-                  node ./parsePR.js              
-                  TESTS=$(cat testsToRun.txt)       
-                  echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
+       
+      - uses: everlytic/branch-merge@1.1.2
+        with:
+          github_token: ${{ github.token }}
+          source_ref: ${{ github.ref }}
+          target_branch: 'uat'
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
         
      
