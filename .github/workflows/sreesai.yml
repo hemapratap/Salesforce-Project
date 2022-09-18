@@ -11,7 +11,7 @@ on:
     branches: [ "devlop" ]
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  #workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -46,7 +46,7 @@ jobs:
         with:
           github_token: ${{ github.token }}
           source_ref: ${{ github.ref }}
-          target_branch: 'uat'
+          target_branch: 'prod'
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
         
