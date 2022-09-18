@@ -40,6 +40,22 @@ jobs:
            
       - name: 'Installing java'
         run: sudo apt-get install openjdk-8-jdk
+        
+      - name: Build
+        run: mvn --batch-mode -DskipTests package
+        
+      - name: Test
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+        
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
+
       
         # Merge to uat      
       - uses: everlytic/branch-merge@1.1.2
