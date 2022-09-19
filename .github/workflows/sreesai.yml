@@ -41,20 +41,8 @@ jobs:
       - name: 'Installing java'
         run: sudo apt-get install openjdk-8-jdk
         
-      - name: Build
-        run: mvn --batch-mode -DskipTests package
-        
-      - name: Test
-        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
-       
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn --batch-mode --update-apex package  
+      - name: 'Test case'
+        run: sfdx force:mdapi:deploy -wait 1000 --checkonly --deploydir {https://github.com/hemapratap/Salesforce-Project/tree/devlop/classes}
      
         # Merge to uat      
       - uses: everlytic/branch-merge@1.1.2
